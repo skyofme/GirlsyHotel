@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<import resource="services_base.xml" />
+	<!--用户 -->
+	<!--CusDaoImpl注入 baseDaoImpl-->
+	<bean id="cusDaoImpl" class="com.etc.dao.impl.CusDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+	<!--CusBizImpl注入CusDaoImpl-->
+	<bean id="cusBizImpl" class="com.etc.biz.impl.CusIBizImpl">
+		<property name="cdao" ref="cusDaoImpl"></property>
+		<property name="la" ref="logAssi"></property>
+	</bean>
+
+	<bean id="authDaoImpl" class="com.etc.dao.impl.AuthDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<bean id="authBizImpl" class="com.etc.biz.impl.AuthIBizImpl">
+		<property name="adi" ref="authDaoImpl"></property>
+	</bean>
+	<!--CusAction注入CusBizImpl和OrdBizImpl-->
+	<bean id="cusAction" class="com.etc.action.CusAction">
+		<property name="cbiz" ref="cusBizImpl"></property>
+		<property name="obiz" ref="ordBizImpl"></property>		
+	</bean> 
+
+	<bean id="loadAction" class="com.etc.action.LoadPageAction">
+	</bean>
+	<bean id="logoutAction" class="com.etc.action.LogoutAction">
+	</bean>  
+	<!-- 日志 -->
+	<bean id="logDaoImpl" class="com.etc.dao.impl.LogDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="logBizImpl" class="com.etc.biz.impl.LogIBizImpl">
+		<property name="ldao" ref="logDaoImpl"></property>
+	</bean>
+	<bean id="logAction" class="com.etc.action.LogAction">
+		<property name="lbiz" ref="logBizImpl"></property>				
+	</bean> 
+
+	
+	<bean id="ordDaoImpl" class="com.etc.dao.impl.OrdDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="ordBizImpl" class="com.etc.biz.impl.OrdIBizImpl">
+		<property name="odao" ref="ordDaoImpl"></property>
+		<property name="rdao" ref="roomDaoImpl"></property>
+		<property name="la" ref="logAssi"></property>
+	</bean>
+	
+	
+	<!-- 员工 -->
+	<!--EmpDaoImpl注入 baseDaoImpl-->
+	<bean id="empDaoImpl" class="com.etc.dao.impl.EmpDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>	
+	<!--EmpBizImpl注入EmpDaoImpl-->
+	<bean id="emplBizImpl" class="com.etc.biz.impl.EmpIBizImpl">
+		<property name="edao" ref="empDaoImpl"></property>
+		<property name="la" ref="logAssi"></property>
+	</bean>
+	<!--EmpAction注入 EmpBizImpl-->
+	<bean id="empAction" class="com.etc.action.EmpAction">
+		<property name="ebiz" ref="emplBizImpl"></property>
+	</bean> 
+	<bean id="loginAction" class="com.etc.action.LoginAction">
+		<property name="ebi" ref="emplBizImpl"></property>
+		<property name="ab" ref="authBizImpl"></property>
+	</bean>
+	<bean id="empallAction" class="com.etc.action.EmpAllAction">
+		<property name="ebiz" ref="emplBizImpl"></property>
+		<property name="dbiz" ref="depBizImpl"></property>		
+	</bean>
+	<!--部门 -->
+	<!--DepBizImpl注入DepDaoImpl-->
+	<bean id="depBizImpl" class="com.etc.biz.impl.DepIBizImpl">
+		<property name="ddao" ref="depDaoImpl"></property>
+		<property name="la" ref="logAssi"></property>
+	</bean>
+	<!--DepDaoImpl注入 baseDaoImpl-->
+	<bean id="depDaoImpl" class="com.etc.dao.impl.DepDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 房间 -->
+	<!-- RoomDaoImpl注入baseDaoImpl -->
+	<bean id="roomDaoImpl" class="com.etc.dao.impl.RoomDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+	<!-- RoomBizImpl 注入 RoomDaoImpl -->
+	<bean id="roomBizImpl" class="com.etc.biz.impl.RoomIBizImpl">
+		<property name="rdao" ref="roomDaoImpl"></property>
+	</bean>
+	<!-- RoomAction 注入 RoomBizImpl -->
+	<bean id="roomAction" class="com.etc.action.RoomAction">
+		<property name="rbiz" ref="roomBizImpl"></property>
+		<property name="rtbiz" ref="roomTypeBizImpl"></property>
+	</bean>
+	<!-- 房间类型(经理) -->
+	<bean id="roomTypeDaoImpl" class="com.etc.dao.impl.RoomTypeDaoImpl">
+		<property name="sbdao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="roomTypeBizImpl" class="com.etc.biz.impl.RoomTypeIBizImpl">
+		<property name="rtdao" ref="roomTypeDaoImpl"></property>
+	</bean>
+	<!-- RoomAction 注入 RoomBizImpl -->
+	<bean id="roomTypeAction" class="com.etc.action.RoomTypeAction">
+		<property name="rtbiz" ref="roomTypeBizImpl"></property>
+		<property name="rbiz" ref="roomBizImpl"></property>		
+	</bean>
+	<bean id="roomTypeAllAction" class="com.etc.action.RoomTypeAllAction">
+		<property name="rtbiz" ref="roomTypeBizImpl"></property>
+		<property name="rbiz" ref="roomBizImpl"></property>		
+	</bean>
+
+	<bean id="ordAction" class="com.etc.action.OrdAction">
+		<property name="obi" ref="ordBizImpl"></property>
+		<property name="rbi" ref="roomBizImpl"></property>
+		<property name="cbi" ref="cusBizImpl"></property>
+	</bean>
+	
+	<bean id="changePwdAction" class="com.etc.action.ChangePwdAction">
+		<property name="eib" ref="emplBizImpl"></property>
+	</bean>
+
+	<!-- 上传注入 -->
+	<bean id="MultiFileUploadAction" class="com.etc.action.MultiFileUploadAction">
+		<property name="rtbiz" ref="roomTypeBizImpl"></property>
+	</bean>
+	
+	<!-- 首页需要的几个球的数据 -->
+	<bean id="indexDataAction" class="com.etc.action.IndexDataAction">
+		<property name="rtib" ref="roomTypeBizImpl"></property>
+		<property name="rib" ref="roomBizImpl"></property>
+	</bean>
+	
+	<!-- 日志有关 -->
+	<bean id="logAssi" class="com.etc.aop.LogAssi">
+	</bean>
+	
+	<bean id="productLog" class="com.etc.aop.ProductLog">
+		<property name="lib" ref="logBizImpl"></property>
+	</bean>
+
+	<aop:config>
+		<!-- 位置 原始程序 表达式 切入点 那个类 那个方法进行功能增强 -->
+		<aop:pointcut expression="within(com.etc.aop.LogAssi)" id="pointcut" />
+		<aop:aspect ref="productLog">
+			<aop:after-returning method="after" pointcut-ref="pointcut" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>

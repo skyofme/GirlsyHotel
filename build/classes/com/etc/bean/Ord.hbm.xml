@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.Ord" table="ORD">
+        <id name="ordId" type="int">
+            <column name="ORDID" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cus" class="com.etc.bean.Cus" fetch="join" lazy="false">
+            <column name="CUSID" />
+        </many-to-one>
+        <many-to-one name="room" class="com.etc.bean.Room" fetch="join" lazy="false">
+            <column name="RMID" />
+        </many-to-one>
+        <property name="inDate" type="java.sql.Date">
+            <column name="INDATE" />
+        </property>
+        <property name="outDate" type="java.sql.Date">
+            <column name="OUTDATE" />
+        </property>
+        <property name="ordState" type="java.lang.String">
+            <column name="ORDSTATE" />
+        </property>
+        <property name="rmDayPrice" type="double">
+            <column name="RMDAYPRICE" />
+        </property>
+    </class>
+</hibernate-mapping>

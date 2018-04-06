@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.RoomType" table="ROOMTYPE">
+        <id name="rmTpId" type="int">
+            <column name="RMTPID" />
+            <generator class="increment" />
+        </id>
+        <property name="rmTpName" type="java.lang.String">
+            <column name="RMTPNAME" />
+        </property>
+        <property name="rmTpInitPrice" type="double">
+            <column name="RMTPINITPRICE" />
+        </property>
+        <property name="rmTpPic" type="java.lang.String">
+            <column name="RMTPPIC" />
+        </property>
+    </class>
+</hibernate-mapping>

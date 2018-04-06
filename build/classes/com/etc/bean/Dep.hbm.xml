@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.Dep" table="DEP">
+        <id name="depId" type="int">
+            <column name="DEPID" />
+            <generator class="increment" />
+        </id>
+        <property name="depName" type="java.lang.String">
+            <column name="DEPNAME" />
+        </property>
+        <set name="emplist" table="EMP" inverse="false" lazy="true">
+            <key>
+                <column name="DEPID" />
+            </key>
+            <one-to-many class="com.etc.bean.Emp" />
+        </set>
+        <!--table 中间表  -->
+		<set name="authlist" table="authtodep" lazy="false">
+		   <!-- 员工表和中间表 -->
+			<key>
+				<column name="depId"></column>
+			</key>
+			<!-- authlist的全限定名 -->
+			<many-to-many class="com.etc.bean.Auth">
+				<column name="authId"></column>
+			</many-to-many>
+		</set>
+    </class>
+</hibernate-mapping>

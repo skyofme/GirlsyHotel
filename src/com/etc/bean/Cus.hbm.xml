@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.Cus" table="CUS">
+        <id name="cusId" type="int">
+            <column name="CUSID" />
+            <generator class="increment" />
+        </id>
+        <property name="cusName" type="java.lang.String">
+            <column name="CUSNAME" />
+        </property>
+        <property name="cusCid" type="java.lang.String">
+            <column name="CUSCID" />
+        </property>
+        <!--  inverse 将控制权交给谁? 
+        1 - n 客户和订单
+        inverse = false 表示由两张表共同维护（两张表的改动都会间接影响ORD）
+        inverse = true 表示将管理权交给olist（只有olist的改动会影响ORD）
+        
+        lazy = false 立即加载	涉及到对一张表的操作时，会立即获取与之相关的其他表
+        lazy = true 延迟加载   涉及到对一张表的操作时，不会立即获取与之相关的其他表
+        
+        cascade = all 级联操作 （修改一张表的同时也会修改与之有联系的表）
+        
+		<set name="olist" table="ORD" inverse="false" lazy="false" cascade="all">
+			<key>
+				多的一方数据库关联字段名 外键字段
+				<column name="cusId" />
+			</key>
+			<one-to-many class="com.etc.bean.Ord" />
+		</set> -->
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,92 @@
+body {
+	background: #3E3E3E;
+}
+
+.container-fluid {
+	padding: 0px;
+	background: #3E3E3E;
+}
+
+
+/*顶部导航栏*/
+
+.nav-top {
+	height: 60px;
+	width: 100%;
+	/*border: 1px solid hotpink;*/
+	position: fixed;
+	background: #FFFFFF;
+	top: 0;
+	z-index: 300;
+}
+
+.nav-top .navbar-brand {
+	color: #fff;
+	width: 260px;
+	text-align: left;
+	height: 60px;
+	font-size: 24px;
+	font-weight: 700;
+	/* text-transform: uppercase; */
+	line-height: 30px;
+	background: #F36A5A;
+}
+
+.navbar-brand {
+	float: left;
+	height: 50px;
+	padding: 15px 15px;
+	font-size: 18px;
+	line-height: 20px;
+}
+
+#sideNav {
+	float: left;
+	left: 0;
+	z-index: 3;
+	color: #868686;
+	cursor: pointer;
+	border-radius: 0;
+	width: 14px;
+	font-size: 48px;
+	line-height: 0;
+	margin: 7px 0 0 20px;
+}
+
+
+/*左侧导航栏*/
+
+.nav-left {
+	width: 260px;
+	height: auto;
+	/*border: 1px solid black;*/
+	position: fixed;
+	top: 80px;
+	background: #3E3E3E;
+	z-index: 300;
+}
+
+i.fa.fa-bars {
+	font-size: 20px;
+	margin: 12px 0 0;
+}
+
+.nav-left .metismenu i {
+	margin-right: 20px;
+}
+
+.nav-left .metismenu>li {
+	border-bottom: 1px solid rgba(107, 108, 109, 0.19);
+}
+
+.main {
+	margin-left: 260px;
+	margin-bottom: 10px;
+	height: auto;
+	/*border: 1px solid firebrick;*/
+	position: relative;
+	/* top: 25px; */
+	background: #EDEDED;
+	z-index: 2;
+	padding-top: 60px;
+}

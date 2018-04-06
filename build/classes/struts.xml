@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 当配置文件被修改 时 重新加载该配置文件 -->
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<package name="struts2" extends="struts-default" namespace="/">
+		<!-- 定义拦截器 -->
+		<interceptors>
+			<!--定义权限验证拦截器 -->
+			<interceptor name="myAuthorization"
+				class="com.etc.interceptor.LoginInterceptor">
+				<!-- 要让以下 "方法过滤配置"起作用，拦截器需要继承MethodFilterInterceptor类 -->
+				<!-- excludeMethods表示排除指定的方法，即不对标记为excludeMethods的方法进行拦截， -->
+				<!-- includeMethods表示包含指定的方法，即对标记为includeMethods的方法进行拦截， -->
+				<param name="excludeMethods">doLogin</param>
+			</interceptor>
+			<interceptor-stack name="myStack">
+			<!-- 引用默认拦截器 -->
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="myAuthorization" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		<!-- 考虑到拦截器的重复使用，可能在多个Action都需要跳转到login逻辑试图，故将login Result定义成一个全局Result。 -->
+		<global-results>
+			<!-- 当返回gologin视图名时，转入/login.jsp页面 -->
+			<result name="gologin" type="redirect">/login.jsp</result>
+		</global-results>
+		<action name="doLogin" class="loginAction"
+			method="doLogin">
+			<result name="success">/WEB-INF/index.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<!-- 分页查询所有员工 -->
+		<action name="*empAction" class="empAction" method="{1}">
+			<result name="success">/WEB-INF/empAll.jsp</result>
+		</action>
+		
+		<!-- 对员工进行修改删除增加 -->
+		<action name="*allAction" class="empallAction" method="{1}">
+			<result name="Success" type="redirect">pageAllempAction.action?start=1&amp;pageSize=10
+			</result>
+			<result name="doedit">/WEB-INF/doedit.jsp</result>
+			<result name="editSuccess" >/WEB-INF/index.jsp</result>			
+			<result name="doadd">/WEB-INF/doadd.jsp</result>
+			<result name="addSuccess">/WEB-INF/index.jsp</result>	
+		</action>
+		
+		<!-- 分页查询所有房间类型（经理） -->
+		<action name="*roomTypeAction" class="roomTypeAction" method="{1}">
+			<result name="updateOrAddSuccess">/WEB-INF/index.jsp</result>
+		    <result name="update">/WEB-INF/index.jsp</result>
+			<result name="showAll">/WEB-INF/fileupload.jsp</result>
+			<result name="a" >/WEB-INF/rmtpAll.jsp</result>
+		</action>
+		<!-- 对房间类型进行修改增加 -->
+		<action name="*roomTypeAllAction" class="roomTypeAllAction" method="{1}">
+			<result name="query_success">/WEB-INF/rmAll.jsp</result>
+			<result name="delSuccess">/WEB-INF/rmAll.jsp</result>
+			<result name="doadd">/WEB-INF/rmtpAdd.jsp</result>
+			<result name="addSuccess">/WEB-INF/index.jsp</result>
+			<result name="doedit">/WEB-INF/rmtpEdit.jsp</result>
+			<result name="editSuccess">/WEB-INF/index.jsp</result>
+		</action>
+		
+		<action name="*roomAction" class="roomAction" method="{1}">
+			<result name="query_success">/WEB-INF/rmAll.jsp</result>
+			<result name="first_to_return" type="redirect">pageAllroomAction.action</result>
+		</action>
+		<action name="*cusAction" class="cusAction" method="{1}">
+			<result name="success">/WEB-INF/cusAll.jsp</result>
+			<result name="Success" type="redirect">pageAllcusAction.action?start=1&amp;pageSize=10</result>
+			<result name="doedit">/WEB-INF/cusEdit.jsp</result>
+			<result name="editSuccess">/WEB-INF/index.jsp</result>
+			<result name="cusInfo">/WEB-INF/cusInfo.jsp</result>
+		</action>
+		<action name="*ordAction" class="ordAction" method="{1}">
+			<result name="getAll">/WEB-INF/order.jsp</result>
+			<result name="gotoindex">/WEB-INF/data.jsp</result>
+		</action>
+		<action name="*logAction" class="logAction" method="{1}">
+			<result name="logAll">/WEB-INF/logAll.jsp</result>	
+			<result name="logAllbyId">/WEB-INF/logById.jsp</result>		
+		</action>
+		<action name="*changePwd" class="changePwdAction" method="{1}">
+			<result name="success">/WEB-INF/index.jsp</result>
+		</action>
+		<action name="indexAction" class="indexDataAction">
+			<result name="success">/WEB-INF/data.jsp</result>
+		</action>
+		<action name="loadPageAction" class="loadAction" method="execute">
+			<!-- <result name="rmAll" type="redirect">pageAllroomAction.action?type=all&amp;first=true</result> -->
+			<result name="rmAll" type="redirect">getAllroomAction.action?first=true</result>
+			<result name="empAll" type="redirect">pageAllempAction.action</result>
+			<result name="doAdd" type="redirect">doAddallAction.action</result>
+			<result name="cusAll" type="redirect">pageAllcusAction.action?start=1&amp;pageSize=10</result>
+			<result name="order" type="redirect">/getAllordAction.action?start=1&amp;first=f</result>
+			<result name="rmtpAll" type="redirect">pageAllroomTypeAction.action</result>
+			<result name="logAll" type="redirect">getAlllogAction.action?start=1&amp;pageSize=10</result>
+			<result name="logById" type="redirect">getAllIdlogAction.action?start=1&amp;pageSize=10</result>
+			<result name="data"  type="redirect">indexAction.action</result>
+			<result name="changePwd">/WEB-INF/changePwd.jsp</result>
+			<result name="fileupload">/WEB-INF/fileupload.jsp</result>
+			<result name="rmtpAdd" type="redirect">doAddroomTypeAllAction.action</result>
+			<result name="rmtpEdit" type="redirect">doEditroomTypeAllAction.action</result>
+			<result name="showAll" type="redirect">showAllroomTypeAction</result>
+		</action>
+		<action name="logoutAction" class="logoutAction">
+			<result name="success">login.jsp</result>
+		</action>
+		<!-- 多文件上传 -->
+		<action name="*upload2" class="MultiFileUploadAction" method="{1}">
+			<param name="savePath">/upload</param>
+			<!-- <result name="success">/WEB-INF/index.jsp</result> -->
+			<result name="success">/upload_success2.jsp</result>
+		</action>
+	</package>
+</struts>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.Room" table="ROOM">
+        <id name="rmId" type="int">
+            <column name="RMID" />
+            <generator class="increment" />
+        </id>
+        <property name="rmName" type="java.lang.String">
+            <column name="RMNAME" />
+        </property>
+        <property name="rmPrice" type="double">
+            <column name="RMPRICE" />
+        </property>
+        <many-to-one name="roomType" class="com.etc.bean.RoomType" fetch="join" lazy="false">
+            <column name="RMTPID" />
+        </many-to-one>
+        <property name="rmState" type="java.lang.String">
+            <column name="RMSTATE" />
+        </property>
+    </class>
+</hibernate-mapping>

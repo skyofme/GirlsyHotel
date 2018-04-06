@@ -1,0 +1,47 @@
+/*
+* @Author: Administrator
+* @Date:   2017-12-25 20:58:22
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-12-25 21:24:43
+*/
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	width: 100%;
+}
+.part {
+	display: inline-block;
+	text-align: center;
+	margin: 10px 20px;
+	position: relative;
+	height: 240px;
+}
+.htmleaf-container {
+	width: 100%;
+}
+.htmleaf-header {
+	height: 80px;
+}
+.htmleaf-content {
+	width: 100%;
+	text-align: center;
+	margin-top: 30px;
+}
+.htmleaf-footer {
+	height: 35px;
+}
+.line1 {
+	text-align: center;
+}
+
+.line2 {
+}
+.part>div {
+	/* position: absolute; */
+	bottom: 0px;
+	left: 70px;
+	font: bold 25px "Microsoft YaHei";
+	color: #888;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.Emp" table="EMP">
+        <id name="empId" type="int">
+            <column name="EMPID" />
+            <generator class="increment" />
+        </id>
+        <property name="empName" type="java.lang.String">
+            <column name="EMPNAME" />
+        </property>
+        <many-to-one name="dep" class="com.etc.bean.Dep" lazy="false" fetch="join">
+            <column name="DEPID" />
+        </many-to-one>
+        <property name="empAge" type="int">
+            <column name="EMPAGE" />
+        </property>
+        <property name="empDate" type="java.sql.Date">
+            <column name="EMPDATE" />
+        </property>
+        <property name="empSal" type="int">
+            <column name="EMPSAL" />
+        </property>
+        <property name="empSex" type="java.lang.String">
+            <column name="EMPSEX" />
+        </property>
+        <property name="empTel" type="java.lang.String">
+            <column name="EMPTEL" />
+        </property>
+        <property name="empPwd" type="java.lang.String">
+            <column name="EMPPWD" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-25 18:32:43 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.etc.bean.Log" table="LOG">
+        <id name="logId" type="int">
+            <column name="LOGID" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="emp" class="com.etc.bean.Emp" fetch="join" lazy="false">
+            <column name="EMPID" />
+        </many-to-one>
+        <property name="ope" type="java.lang.String">
+            <column name="OPE" />
+        </property>
+        <property name="opeTime" type="java.lang.String">
+            <column name="OPETIME" />
+        </property>
+    </class>
+</hibernate-mapping>
